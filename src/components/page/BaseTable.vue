@@ -1,37 +1,20 @@
 <template>
     <div class="table">
-
-<!--    <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i> 基础表格</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>-->
-
         <div class="container">
             <el-button type="primary" icon="delete" class="filter-item" @click="delAll">批量失效</el-button>
             <el-input placeholder="Banner标题" v-model="listQuery.title" style="width: 300px;" class="filter-item" @keyup.enter.native="handleFilter"/>
             <el-select v-model="listQuery.platform" placeholder="平台类型" clearable style="width: 110px" class="filter-item">
-                <el-option v-for="item in platformOptions" :key="item" :label="item" :value="item"/>
+                <el-option v-for="item in platformOptions" :key="item.key" :label="item.label" :value="item.label"/>
             </el-select>
             <el-select v-model="listQuery.status" placeholder="状态" clearable style="width: 80px" class="filter-item" @change="handleFilter">
                 <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
-            <el-select v-model="listQuery.sort" style="width: 100px" class="filter-item" @change="handleFilter">
+            <el-select v-model="listQuery.sort" style="width: 100px" class="filter-item" @change="handleSort">
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
             <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
             <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
             <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
-
-<!--        <div class="handle-box">
-                <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>
-                <el-select v-model="select_cate" placeholder="筛选省份" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="广东省"></el-option>
-                    <el-option key="2" label="湖南省" value="湖南省"></el-option>
-                </el-select>
-                <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="search" @click="search">搜索</el-button>
-            </div>-->
 
 <!--        <el-table
                 :data="data"
@@ -52,22 +35,25 @@
                         <span>{{ scope.row.id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="标题" align="center" width="200">
+                <el-table-column label="标题" align="left" width="215">
                     <template slot-scope="scope">
                         <span>{{ scope.row.title }}</span>
+                        <el-tag>{{ scope.row.app_name | platformFilter }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="banner图片" align="center" width="100">
+                <el-table-column label="banner图片" align="center" prop="imgPath" width="140">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.banner_url }}</span>
+                        <img :src="scope.row.banner_url" style="width: 120px" height="50px">
                     </template>
                 </el-table-column>
-                <el-table-column label="banner链接" align="center" width="300">
+                <el-table-column label="banner链接" align="center" width="120">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.link_url }}</span>
+                        <a :href="scope.row.link_url"
+                           target="_blank"
+                           class="el-button--text">链接地址</a>
                     </template>
                 </el-table-column>
-                <el-table-column label="类型" align="center" width="50">
+                <el-table-column label="类型" align="center" width="90">
                     <template slot-scope="scope">
                         <span>{{ scope.row.type }}</span>
                     </template>
@@ -77,7 +63,7 @@
                         <span>{{ scope.row.type_id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="打开动作" align="center" width="85">
+                <el-table-column label="打开动作" align="center" width="90">
                     <template slot-scope="scope">
                         <span>{{ scope.row.action }}</span>
                     </template>
@@ -92,32 +78,34 @@
                         <span>{{ scope.row.rank }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="状态" align="center" width="50">
+                <el-table-column label="状态" class-name="status-col" width="70">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.status }}</span>
+                        <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="生效时间" align="center" width="130">
+
+                <el-table-column label="生效时间" align="center" width="140">
                     <template slot-scope="scope">
                         <span>{{ scope.row.effective_time }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="失效时间" align="center" width="130">
+                <el-table-column label="失效时间" align="center" width="140">
                     <template slot-scope="scope">
                         <span>{{ scope.row.expired_time }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="200" align="center">
+                <el-table-column label="操作" width="240" align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button type="text" icon="el-icon-document" class="green" @click="handleValid(scope.$index, scope.row)">生效</el-button>
-                        <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">失效</el-button>
+                        <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button v-if="scope.row.status!=='生效'" size="mini" type="success" @click="handlePublish(scope.$index, scope.row)">生效</el-button>
+                        <el-button v-if="scope.row.status!=='失效'" size="mini" @click="handleInvalid(scope.$index, scope.row)">失效</el-button>
+                        <el-button v-if="scope.row.status!=='删除'" size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination background @current-change="handleCurrentChange" layout="prev, pager, next" :total="1000">
+                <el-pagination background @current-change="handleCurrentChange" layout="prev, pager, next" :total="100">
                 </el-pagination>
             </div>
         </div>
@@ -125,11 +113,23 @@
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="90px">
-                <el-form-item label="标题">
-                    <el-input v-model="form.title"></el-input>
-                </el-form-item>
+                <el-row type="flex" class="row-bg">
+                    <el-col>
+                        <el-form-item label="标题">
+                            <el-input v-model="form.title" style="width: 170px"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col>
+                        <el-form-item label="平台类型">
+                            <el-select v-model="form.app_name" class="filter-item" placeholder="请选择平台类型">
+                                <el-option v-for="item in platformOptions" :key="item.key" :label="item.label" :value="item.key"/>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
                 <el-form-item label="banner图片">
-                    <el-input v-model="form.banner_url"></el-input>
+                    <el-input v-model="form.banner_url" style="width: 338px"></el-input>
+                    <el-button type="primary" @click="handlePictureUpload">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
                 </el-form-item>
                 <el-form-item label="banner链接">
                     <el-input v-model="form.link_url"></el-input>
@@ -149,7 +149,7 @@
                 </el-form-item>
                 <el-form-item label="弹出样式">
                     <el-select v-model="form.style" class="filter-item" placeholder="请选择样式">
-                        <el-option v-for="item in styleOption" :key="item.key" :label="item.label" :value="item.key"/>
+                        <el-option v-for="item in styleOption" :key="item.key" :label="item.label" :value="item.label"/>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="排序">
@@ -157,7 +157,7 @@
                 </el-form-item>
                 <el-form-item label="状态">
                     <el-select v-model="form.status" class="filter-item" placeholder="请选择状态">
-                        <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.key"/>
+                        <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.label"/>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="生效时间">
@@ -173,37 +173,70 @@
             </span>
         </el-dialog>
 
-        <!-- 删除提示框 -->
-        <el-dialog title="提示" :visible.sync="delVisible" width="300px" center>
-            <div class="del-dialog-cnt">删除不可恢复，是否确定删除？</div>
+        <!-- 生效提示框 -->
+        <el-dialog title="提示" :visible.sync="publishVisible" width="300px" center>
+            <div class="del-dialog-cnt">是否确定使该Banner生效？</div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="delVisible = false">取 消</el-button>
+                <el-button @click="publishVisible = false">取 消</el-button>
+                <el-button type="primary" @click="publishRow">确 定</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- 失效提示框 -->
+        <el-dialog title="提示" :visible.sync="invalidVisible" width="300px" center>
+            <div class="del-dialog-cnt">是否确定使该Banner失效？</div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="invalidVisible = false">取 消</el-button>
+                <el-button type="primary" @click="invalidRow">确 定</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- 删除提示框 -->
+        <el-dialog title="提示" :visible.sync="deleteVisible" width="300px" center>
+            <div class="del-dialog-cnt">是否确定删除该Banner？</div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="deleteVisible = false">取 消</el-button>
                 <el-button type="primary" @click="deleteRow">确 定</el-button>
             </span>
         </el-dialog>
+
     </div>
 </template>
 
 <script>
     export default {
-        name: 'basetable',
+        name: 'bannerTable',
+        filters: {
+            statusFilter(status) {
+                const statusMap = {
+                    生效: 'success',
+                    失效: 'info',
+                    删除: 'danger'
+                };
+                return statusMap[status];
+            },
+            platformFilter(app_name) {
+                const platformMap = {
+                    feiyu_IOS: 'IOS',
+                    feiyu_Android: 'Android'
+                };
+                return platformMap[app_name];
+            }
+        },
         data() {
             return {
                 url: './static/vuetable.json',
                 tableData: [],
                 cur_page: 1,
                 multipleSelection: [],
-                select_cate: '',
-                select_word: '',
-                del_list: [],
-                is_search: false,
                 editVisible: false,
-                delVisible: false,
-
-
-                tableKey: 0,
-                list: null,
+                publishVisible: false,
+                invalidVisible: false,
+                deleteVisible: false,
+                dialogVisible: false,
+                idx: -1,
                 listLoading: true,
+                downloadLoading: false,
                 listQuery: {
                     page: 1,
                     limit: 20,
@@ -213,12 +246,13 @@
                     type: undefined,
                     sort: '+id'
                 },
-                platformOptions: ['Android', 'IOS'],
+                platformOptions: [{label: 'Android', key:'feiyu_Android'}, {label: 'IOS', key:'feiyu_IOS'}],
                 sortOptions: [{ label: 'ID升序', key: '+id' }, { label: 'ID降序', key: '-id' }],
                 typeOption: ['news', 'program'],
                 actionOption: ['open', 'play'],
                 styleOption: [{label: '横屏', key: '1'}, {label: '弹出框', key: '2'}, {label: '其他', key: '3'}],
-                statusOption: [{label: '生效', key: '0'}, {label: '失效', key: '-1'}],
+                statusOption: [{label: '生效', key: '0'}, {label: '失效', key: '-1'}, {label: '删除', key: '-2'}],
+                cropImg: '',
                 form: {
                     id: '',
                     app_name: '',
@@ -234,57 +268,58 @@
                     effective_time: new Date(),
                     expired_time: new Date()
                 },
-                idx: -1,
             }
         },
         created() {
             this.getData();
         },
-        computed: {
-            data() {
-                return this.tableData.filter((d) => {
-                    let is_del = false;
-                    for (let i = 0; i < this.del_list.length; i++) {
-                        if (d.name === this.del_list[i].name) {
-                            is_del = true;
-                            break;
-                        }
-                    }
-                    if (!is_del) {
-                        if (d.address.indexOf(this.select_cate) > -1 &&
-                            (d.name.indexOf(this.select_word) > -1 ||
-                                d.address.indexOf(this.select_word) > -1)
-                        ) {
-                            return d;
-                        }
-                    }
-                })
-            }
-        },
         methods: {
-            // 分页导航
-            handleCurrentChange(val) {
-                this.cur_page = val;
-                this.getData();
-            },
-            // 获取 easy-mock 的模拟数据
             getData() {
                 this.$axios.get(this.url).then((res) => {
                     this.tableData = res.data.list;
                 })
             },
-            search() {
-                this.is_search = true;
+            handleSort() {
+/*                this.$axios.get("http://xxx.xx.xx/"+this.listQuery.sort).then(response => {
+                    this.tableData = response.data;
+                }).catch(error => {
+                    console.log(error);
+                })*/
+                if (this.listQuery.sort === "+id") {
+                    this.tableData = this.tableData.sort((a, b) => {
+                        return a.id-b.id;
+                    });
+                } else {
+                    this.tableData =  this.tableData.sort((a, b) => {
+                        return b.id-a.id;
+                    });
+                }
             },
-            formatter(row, column) {
-                return row.address;
+            handleFilter() {
+                this.listQuery.page = 1;
             },
-            filterTag(value, row) {
-                return row.tag === value;
+            handleCreate() {
+                this.editVisible = true;
+                this.form = {
+                    id: '',
+                    app_name: '',
+                    title: '',
+                    banner_url: '',
+                    link_url: '',
+                    type: '',
+                    type_id: '',
+                    action: '',
+                    style: '',
+                    rank: '',
+                    status: '',
+                    effective_time: new Date(),
+                    expired_time: new Date(new Date().getFullYear()+1, new Date().getMonth(), new Date().getDay())
+                }
             },
             handleEdit(index, row) {
+                this.editVisible = true;
                 this.idx = index;
-                const item = this.tableData[index];
+                let item = this.tableData[index];
                 this.form = {
                     id: index,
                     app_name: item.app_name,
@@ -300,104 +335,98 @@
                     effective_time: item.effective_time,
                     expired_time: item.expired_time
                 };
-                this.editVisible = true;
             },
-            handleValid(index, row) {
+            handlePublish(index, row) {
                 this.idx = index;
-                const item = this.tableData[index];
-                this.form = {
-                    id: index,
-                    app_name: item.app_name,
-                    title: item.title,
-                    banner_url: item.banner_url,
-                    link_url: item.link_url,
-                    type: item.type,
-                    type_id: item.type_id,
-                    action: item.action,
-                    style: item.style,
-                    rank: item.rank,
-                    status: item.status,
-                    effective_time: item.effective_time,
-                    expired_time: item.expired_time
-                };
-                this.editVisible = true;
+                this.publishVisible = true;
+            },
+            handleInvalid(index, row) {
+                this.idx = index;
+                this.invalidVisible = true;
             },
             handleDelete(index, row) {
                 this.idx = index;
-                this.delVisible = true;
+                this.deleteVisible = true;
+            },
+            handleDownload() {
+                this.downloadLoading = true;
+                import('@/vendor/Export2Excel').then(excel => {
+                    const tHeader = ['id', 'app_name', 'title', 'banner_url', 'link_url', 'type', 'type_id', 'action', 'style', 'rank', 'status', 'effective_time', 'expired_time'];
+                    const filterVal = ['id', 'app_name', 'title', 'banner_url', 'link_url', 'type', 'type_id', 'action', 'style', 'rank', 'status', 'effective_time', 'expired_time'];
+                    const data = this.formatJson(filterVal, this.tableData);
+                    excel.export_json_to_excel({
+                        header: tHeader,
+                        data,
+                        filename: 'table-list'
+                    })
+                    this.downloadLoading = false
+                })
             },
             delAll() {
-                const length = this.multipleSelection.length;
-                let str = '';
-                this.del_list = this.del_list.concat(this.multipleSelection);
-                for (let i = 0; i < length; i++) {
-                    str += this.multipleSelection[i].name + ' ';
-                }
-                this.$message.error('删除了' + str);
+                this.multipleSelection.forEach(item1 => {
+                   this.tableData.forEach(item2 => {
+                       if (item2.id === item1.id) {
+                           item2.status = "失效";
+                       }
+                   });
+                });
+                this.$message.error('失效了' + this.multipleSelection.length + '个banner');
                 this.multipleSelection = [];
             },
+            // 分页导航
+            handleCurrentChange(val) {
+                this.cur_page = val;
+                // TODO
+            },
+            // 批量操作
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
             // 保存编辑
             saveEdit() {
                 this.$set(this.tableData, this.idx, this.form);
-                this.$message.success(`修改第 ${this.idx+1} 行成功`);
+                this.$message.success('操作成功');
                 this.editVisible = false;
             },
-            // 确定删除
+            // 生效操作
+            publishRow() {
+                this.tableData[this.idx].status = "生效";
+                this.$message.success('操作成功');
+                this.publishVisible = false;
+            },
+            // 失效操作
+            invalidRow(){
+                this.tableData[this.idx].status = "失效";
+                this.$message.success('操作成功');
+                this.invalidVisible = false;
+            },
             deleteRow(){
-                this.tableData.splice(this.idx, 1);
-                this.$message.success('删除成功');
-                this.delVisible = false;
+                this.tableData[this.idx].status = "删除";
+                this.$message.success('操作成功');
+                this.deleteVisible = false;
             },
-
-            handleFilter() {
-                this.listQuery.page = 1
-                this.getData();
-            },
+            formatJson(filterVal, jsonData) {
+                return jsonData.map(v => filterVal.map(j => {
+                    if (j === 'timestamp') {
+                        return parseTime(v[j])
+                    } else {
+                        return v[j]
+                    }
+                }));
+            }
         }
     }
 
 </script>
 
 <style scoped>
-    .handle-box {
-        margin-bottom: 20px;
-    }
-
-    .handle-select {
-        width: 120px;
-    }
-
-    .handle-input {
-        width: 300px;
-        display: inline-block;
-    }
     .del-dialog-cnt{
         font-size: 16px;
         text-align: center
     }
-/*    .table{
-        width: 100%;
-        font-size: 14px;
-    }*/
-    .red{
-        color: #ff0000;
-    }
-    .green{
-        color: #67c23a;
-    }
-
-
     .filter-item {
         display: inline-block;
         vertical-align: middle;
         margin-bottom: 10px;
-    }
-    .link-type,
-    .link-type:focus {
-        color: #337ab7;
-        cursor: pointer;
     }
 </style>

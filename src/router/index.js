@@ -19,24 +19,24 @@ export default new Router({
                     path: '/dashboard',
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: { title: '系统首页' }
-                },*/
+                },
                 {
                     path: '/icon',
                     component: resolve => require(['../components/page/Icon.vue'], resolve),
                     meta: { title: '自定义图标' }
-                },
+                },*/
                 {
                     path: '/table',
                     component: () => import('@/components/page/BaseTable.vue'),
                     name: 'Banner配置',
                     meta: { title: 'Banner配置' }
                 },
-                /*{
-                    path: '/tabs',
-                    component: resolve => require(['../components/page/Tabs.vue'], resolve),
-                    meta: { title: 'tab选项卡' }
-                },
                 {
+                    path: '/tabs',
+                    component: () => import('@/components/page/ProgramTable.vue'),
+                    meta: { title: '节目配置' }
+                },
+                /*{
                     path: '/form',
                     component: resolve => require(['../components/page/BaseForm.vue'], resolve),
                     meta: { title: '基本表单' }
