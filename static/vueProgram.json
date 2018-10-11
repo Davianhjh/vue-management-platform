@@ -1,6 +1,17 @@
 {
     "list":[
         {
+            "id":"1",
+            "name":"Banner1",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/banner\/Banner1.png",
+            "pic_type":"0",
+            "rank":1,
+            "sub_class_id":"0",
+            "sub_class_name":"热门活动",
+            "pic_descrption":null,
+            "source":"喜马拉雅"
+        },
+        {
             "id":"10",
             "name":"声音控",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/zhuti\/%E5%A3%B0%E9%9F%B3%E6%8E%A7.png",
@@ -13,80 +24,125 @@
         },
         {
             "id":"100",
-            "name":"精品QT",
-            "pic_url":null,
-            "pic_type":"7",
+            "name":"头条QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%96%B0%E9%97%BBicon@3x.png",
+            "pic_type":"9",
             "rank":1,
             "sub_class_id":"100",
-            "sub_class_name":"精品",
+            "sub_class_name":"头条QT",
             "pic_descrption":null,
             "source":"蜻蜓FM"
         },
         {
             "id":"101",
-            "name":"小说QT",
-            "pic_url":null,
-            "pic_type":"7",
+            "name":"商业财经QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E5%95%86%E4%B8%9A%E8%B4%A2%E7%BB%8F@3x.png",
+            "pic_type":"9",
             "rank":2,
-            "sub_class_id":"101",
-            "sub_class_name":"小说",
+            "sub_class_id":"107",
+            "sub_class_name":"商业财经QT",
             "pic_descrption":null,
             "source":"蜻蜓FM"
         },
         {
             "id":"102",
-            "name":"儿童QT",
-            "pic_url":null,
-            "pic_type":"7",
+            "name":"汽车QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%B1%BD%E8%BD%A6%E7%9F%A5%E8%AF%86icon@3x.png",
+            "pic_type":"9",
             "rank":3,
             "sub_class_id":"102",
-            "sub_class_name":"儿童",
+            "sub_class_name":"汽车QT",
             "pic_descrption":null,
             "source":"蜻蜓FM"
         },
         {
             "id":"103",
-            "name":"教育QT",
-            "pic_url":null,
-            "pic_type":"7",
+            "name":"相声段子QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E7%9B%B8%E5%A3%B0%E6%AE%B5%E5%AD%90icon@3x.png",
+            "pic_type":"9",
             "rank":4,
             "sub_class_id":"103",
-            "sub_class_name":"教育",
+            "sub_class_name":"相声段子QT",
             "pic_descrption":null,
             "source":"蜻蜓FM"
         },
         {
             "id":"104",
-            "name":"自媒体QT",
-            "pic_url":null,
-            "pic_type":"7",
+            "name":"儿童启智QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E5%84%BF%E7%AB%A5%E5%90%AF%E6%99%BAicon@3x.png",
+            "pic_type":"9",
             "rank":5,
-            "sub_class_id":"104",
-            "sub_class_name":"自媒体",
+            "sub_class_id":"108",
+            "sub_class_name":"儿童启智QT",
             "pic_descrption":null,
             "source":"蜻蜓FM"
         },
         {
             "id":"105",
-            "name":"品牌电台QT",
-            "pic_url":null,
-            "pic_type":"7",
+            "name":"体育运动QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E8%BF%90%E5%8A%A8%E4%BD%93%E8%82%B2icon@3x.png",
+            "pic_type":"9",
             "rank":6,
             "sub_class_id":"105",
-            "sub_class_name":"品牌电台",
+            "sub_class_name":"体育运动QT",
             "pic_descrption":null,
             "source":"蜻蜓FM"
         },
         {
-            "id":"11",
-            "name":"新闻",
-            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%96%B0%E9%97%BBicon@3x.png",
-            "pic_type":"4",
+            "id":"106",
+            "name":"文化QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/newThemePic\/renwen.png",
+            "pic_type":"7",
             "rank":1,
-            "sub_class_id":"10",
-            "sub_class_name":"新闻",
+            "sub_class_id":"106",
+            "sub_class_name":"文化QT",
             "pic_descrption":null,
+            "source":"蜻蜓FM"
+        },
+        {
+            "id":"107",
+            "name":"财经QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/newThemePic\/caijing.png",
+            "pic_type":"7",
+            "rank":2,
+            "sub_class_id":"107",
+            "sub_class_name":"财经QT",
+            "pic_descrption":null,
+            "source":"蜻蜓FM"
+        },
+        {
+            "id":"108",
+            "name":"儿童QT",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/newThemePic\/ertong.png",
+            "pic_type":"7",
+            "rank":3,
+            "sub_class_id":"108",
+            "sub_class_name":"儿童QT",
+            "pic_descrption":null,
+            "source":"蜻蜓FM"
+        },
+        {
+            "id":"109",
+            "name":"特别推荐QT",
+            "pic_url":null,
+            "pic_type":"8",
+            "rank":1,
+            "sub_class_id":"109",
+            "sub_class_name":"特别推荐QT",
+            "pic_descrption":null,
+            "source":"蜻蜓FM"
+        },
+        {
+            "id": "11",
+            "name": "新闻",
+            "pic_url": "http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%96%B0%E9%97%BBicon@3x.png",
+            "pic_type": "4",
+            "rank": 1,
+            "sub_class_id": "10",
+            "sub_class_name": "新闻",
+            "pic_descrption": null,
             "source":"喜马拉雅"
+
         },
         {
             "id":"12",
@@ -130,7 +186,6 @@
             "sub_class_id":"14",
             "sub_class_name":"儿童启智",
             "pic_descrption":null,
-            "source":"喜马拉雅",
             "source":"喜马拉雅"
         },
         {
@@ -178,6 +233,17 @@
             "source":"喜马拉雅"
         },
         {
+            "id":"2",
+            "name":"Banner2",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/banner\/Banner1.png",
+            "pic_type":"0",
+            "rank":2,
+            "sub_class_id":"1",
+            "sub_class_name":"最新跟新",
+            "pic_descrption":null,
+            "source":"喜马拉雅"
+        },
+        {
             "id":"20",
             "name":"健康养生",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E5%81%A5%E5%BA%B7%E5%85%BB%E7%94%9Ficon@3x.png",
@@ -196,6 +262,17 @@
             "rank":11,
             "sub_class_id":"20",
             "sub_class_name":"IT科技",
+            "pic_descrption":null,
+            "source":"喜马拉雅"
+        },
+        {
+            "id":"22",
+            "name":"Banner3",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/banner\/Banner3.png",
+            "pic_type":"0",
+            "rank":3,
+            "sub_class_id":"25",
+            "sub_class_name":"新技能",
             "pic_descrption":null,
             "source":"喜马拉雅"
         },
@@ -385,17 +462,6 @@
             "sub_class_name":"飞鱼节目",
             "pic_descrption":null,
             "source":"喜马拉雅"
-        },
-        {
-            "id":"40",
-            "name":"蜻蜓FM",
-            "pic_url":null,
-            "pic_type":"4",
-            "rank":13,
-            "sub_class_id":"102",
-            "sub_class_name":"蜻蜓FM",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
         },
         {
             "id":"5",

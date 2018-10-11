@@ -1,7 +1,7 @@
 <template>
     <div class="table">
         <div class="container">
-            <el-button type="primary" icon="delete" class="filter-item" @click="delAll">批量失效</el-button>
+            <el-button type="danger" icon="delete" class="filter-item" @click="handleBatch">批量失效</el-button>
             <el-input placeholder="Banner标题" v-model="listQuery.title" style="width: 300px;" class="filter-item" @keyup.enter.native="handleFilter"/>
             <el-select v-model="listQuery.platform" placeholder="平台类型" clearable style="width: 110px" class="filter-item">
                 <el-option v-for="item in platformOptions" :key="item.key" :label="item.label" :value="item.label"/>
@@ -9,12 +9,14 @@
             <el-select v-model="listQuery.status" placeholder="状态" clearable style="width: 80px" class="filter-item" @change="handleFilter">
                 <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
-            <el-select v-model="listQuery.sort" style="width: 100px" class="filter-item" @change="handleSort">
+            <el-select v-model="listQuery.sort" placeholder="排序" clearable style="width: 100px" class="filter-item" @change="handleSort">
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
             <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
             <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
             <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
+            <el-button class="filter-item" style="margin-left: 450px;" :type="rankType" :disabled="rankStatus" @click="confirmRank" >确定顺序</el-button>
+            <el-button class="filter-item" style="margin-left: 10px;" type="primary" @click="modifyRank">调整顺序</el-button>
 
 <!--        <el-table
                 :data="data"
@@ -35,7 +37,7 @@
                         <span>{{ scope.row.id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="标题" align="left" width="215">
+                <el-table-column label="标题" align="left" width="205">
                     <template slot-scope="scope">
                         <span>{{ scope.row.title }}</span>
                         <el-tag>{{ scope.row.app_name | platformFilter }}</el-tag>
@@ -46,7 +48,7 @@
                         <img :src="scope.row.banner_url" style="width: 120px" height="50px">
                     </template>
                 </el-table-column>
-                <el-table-column label="banner链接" align="center" width="120">
+                <el-table-column label="banner链接" align="center" width="100">
                     <template slot-scope="scope">
                         <a :href="scope.row.link_url"
                            target="_blank"
@@ -73,9 +75,14 @@
                         <span>{{ scope.row.style }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="排序" align="center" width="50">
+                <el-table-column label="排序" align="center" width="80">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.rank }}</span>
+                        <!--<span>{{ scope.row.rank }}</span>-->
+                        <span v-if="!editRankFlag">{{ scope.row.rank }}</span>
+                        <span v-if="editRankFlag" class="cell-edit-input">
+                            <el-input size="small" v-model="scope.row.rank" placeholder="" @change="handleEditRank(scope.$index, scope.row.rank)"></el-input>
+                        </span>
+
                     </template>
                 </el-table-column>
                 <el-table-column label="状态" class-name="status-col" width="70">
@@ -200,6 +207,15 @@
             </span>
         </el-dialog>
 
+        <!-- 批量失效提示框 -->
+        <el-dialog title="警告" :visible.sync="batchVisible" width="300px" center>
+            <div class="del-dialog-cnt">是否确定批量失效Banner？</div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="batchVisible = false">取 消</el-button>
+                <el-button type="primary" @click="delAll">确 定</el-button>
+            </span>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -225,7 +241,7 @@
         },
         data() {
             return {
-                url: './static/vuetable.json',
+                url: './static/vueTable.json',
                 tableData: [],
                 cur_page: 1,
                 multipleSelection: [],
@@ -233,10 +249,15 @@
                 publishVisible: false,
                 invalidVisible: false,
                 deleteVisible: false,
-                dialogVisible: false,
+                batchVisible: false,
                 idx: -1,
                 listLoading: true,
                 downloadLoading: false,
+                editRankFlag: false,
+                editRandStatus: false,
+                rankType: 'primary',
+                rankStatus: true,
+                modifyRankData: [],
                 listQuery: {
                     page: 1,
                     limit: 20,
@@ -244,15 +265,14 @@
                     status: undefined,
                     title: undefined,
                     type: undefined,
-                    sort: '+id'
+                    sort: undefined
                 },
                 platformOptions: [{label: 'Android', key:'feiyu_Android'}, {label: 'IOS', key:'feiyu_IOS'}],
-                sortOptions: [{ label: 'ID升序', key: '+id' }, { label: 'ID降序', key: '-id' }],
+                sortOptions: [{ label: 'rank升序', key: '+rank' }, { label: 'rank降序', key: '-rank' }],
                 typeOption: ['news', 'program'],
                 actionOption: ['open', 'play'],
                 styleOption: [{label: '横屏', key: '1'}, {label: '弹出框', key: '2'}, {label: '其他', key: '3'}],
                 statusOption: [{label: '生效', key: '0'}, {label: '失效', key: '-1'}, {label: '删除', key: '-2'}],
-                cropImg: '',
                 form: {
                     id: '',
                     app_name: '',
@@ -266,7 +286,8 @@
                     rank: '',
                     status: '',
                     effective_time: new Date(),
-                    expired_time: new Date()
+                    expired_time: new Date(),
+                    inputColumn: ''
                 },
             }
         },
@@ -285,13 +306,13 @@
                 }).catch(error => {
                     console.log(error);
                 })*/
-                if (this.listQuery.sort === "+id") {
+                if (this.listQuery.sort === "+rank") {
                     this.tableData = this.tableData.sort((a, b) => {
-                        return a.id-b.id;
+                        return a.rank-b.rank;
                     });
                 } else {
                     this.tableData =  this.tableData.sort((a, b) => {
-                        return b.id-a.id;
+                        return b.rank-a.rank;
                     });
                 }
             },
@@ -336,6 +357,9 @@
                     expired_time: item.expired_time
                 };
             },
+            handleBatch() {
+                this.batchVisible = true;
+            },
             handlePublish(index, row) {
                 this.idx = index;
                 this.publishVisible = true;
@@ -357,11 +381,34 @@
                     excel.export_json_to_excel({
                         header: tHeader,
                         data,
-                        filename: 'table-list'
-                    })
+                        filename: 'banner-list'
+                    });
                     this.downloadLoading = false
                 })
             },
+            // 顺序修改
+            modifyRank() {
+                this.editRankFlag = true;
+                this.rankType = 'success';
+                this.rankStatus = false;
+            },
+            handleEditRank(index, val) {
+                this.modifyRankData = this.tableData;
+                this.modifyRankData[index].rank = val;
+                this.editRankStatus = true;
+            },
+            // 确定修改顺序
+            confirmRank() {
+                if (this.editRankStatus) {
+                    this.tableData = this.modifyRankData;
+                }
+                this.modifyRankData = [];
+                this.rankType = 'primary';
+                this.rankStatus = true;
+                this.editRankFlag = false;
+                this.editRankStatus = false;
+            },
+            // 批量失效
             delAll() {
                 this.multipleSelection.forEach(item1 => {
                    this.tableData.forEach(item2 => {
@@ -371,6 +418,7 @@
                    });
                 });
                 this.$message.error('失效了' + this.multipleSelection.length + '个banner');
+                this.batchVisible = false;
                 this.multipleSelection = [];
             },
             // 分页导航
@@ -393,17 +441,20 @@
                 this.tableData[this.idx].status = "生效";
                 this.$message.success('操作成功');
                 this.publishVisible = false;
+                this.idx = -1;
             },
             // 失效操作
             invalidRow(){
                 this.tableData[this.idx].status = "失效";
                 this.$message.success('操作成功');
                 this.invalidVisible = false;
+                this.idx = -1;
             },
             deleteRow(){
                 this.tableData[this.idx].status = "删除";
                 this.$message.success('操作成功');
                 this.deleteVisible = false;
+                this.idx = -1;
             },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v => filterVal.map(j => {
@@ -413,6 +464,9 @@
                         return v[j]
                     }
                 }));
+            },
+            handlePictureUpload() {
+
             }
         }
     }

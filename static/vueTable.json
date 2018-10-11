@@ -24,7 +24,7 @@
         "action":"open",
         "style":"横屏",
         "status":"生效",
-        "rank":"1",
+        "rank":"2",
         "effective_time":"2018-10-01 12:33:56",
         "expired_time":"2019-10-10 13:34:52"
     }, {
@@ -38,7 +38,7 @@
         "action":"open",
         "style":"横屏",
         "status":"生效",
-        "rank":"1",
+        "rank":"3",
         "effective_time":"2018-10-01 12:33:56",
         "expired_time":"2019-10-10 13:34:52"
     },{
@@ -52,7 +52,7 @@
         "action":"play",
         "style":"横屏",
         "status":"生效",
-        "rank":"1",
+        "rank":"4",
         "effective_time":"2018-10-01 12:33:56",
         "expired_time":"2019-10-10 13:34:52"
     },{
@@ -80,7 +80,7 @@
         "action":"open",
         "style":"横屏",
         "status":"生效",
-        "rank":"1",
+        "rank":"2",
         "effective_time":"2018-10-01 12:33:56",
         "expired_time":"2019-10-10 13:34:52"
     }, {
@@ -94,7 +94,7 @@
         "action":"open",
         "style":"横屏",
         "status":"生效",
-        "rank":"1",
+        "rank":"3",
         "effective_time":"2018-10-01 12:33:56",
         "expired_time":"2019-10-10 13:34:52"
     }, {
@@ -108,7 +108,7 @@
         "action":"play",
         "style":"横屏",
         "status":"生效",
-        "rank":"1",
+        "rank":"4",
         "effective_time":"2018-10-01 12:33:56",
         "expired_time":"2019-10-10 13:34:52"
     }]
