@@ -541,11 +541,12 @@
                     }
                 }));
             },
-
-            handleExpandChange(row) {
-                //console.log(row)
+            // 控制整个表格只展开一行
+            handleExpandChange(row, expandedRows) {
+                if (expandedRows.length>1) {
+                    expandedRows.shift();
+                }
             },
-
             // 批量操作album
             handleAlbumSelectionChange(val) {
                 this.multipleAlbumSelection = val;
