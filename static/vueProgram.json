@@ -8,8 +8,8 @@
             "rank":1,
             "sub_class_id":"0",
             "sub_class_name":"热门活动",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"10",
@@ -19,130 +19,129 @@
             "rank":6,
             "sub_class_id":"9",
             "sub_class_name":"声音控",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"100",
             "name":"头条QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%96%B0%E9%97%BBicon@3x.png",
-            "pic_type":"9",
+            "pic_type":"4",
             "rank":1,
             "sub_class_id":"100",
             "sub_class_name":"头条QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"101",
             "name":"商业财经QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E5%95%86%E4%B8%9A%E8%B4%A2%E7%BB%8F@3x.png",
-            "pic_type":"9",
+            "pic_type":"4",
             "rank":2,
             "sub_class_id":"107",
             "sub_class_name":"商业财经QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"102",
             "name":"汽车QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%B1%BD%E8%BD%A6%E7%9F%A5%E8%AF%86icon@3x.png",
-            "pic_type":"9",
+            "pic_type":"4",
             "rank":3,
             "sub_class_id":"102",
             "sub_class_name":"汽车QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"103",
             "name":"相声段子QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E7%9B%B8%E5%A3%B0%E6%AE%B5%E5%AD%90icon@3x.png",
-            "pic_type":"9",
+            "pic_type":"4",
             "rank":4,
             "sub_class_id":"103",
             "sub_class_name":"相声段子QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"104",
             "name":"儿童启智QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E5%84%BF%E7%AB%A5%E5%90%AF%E6%99%BAicon@3x.png",
-            "pic_type":"9",
+            "pic_type":"4",
             "rank":5,
             "sub_class_id":"108",
             "sub_class_name":"儿童启智QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"105",
             "name":"体育运动QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E8%BF%90%E5%8A%A8%E4%BD%93%E8%82%B2icon@3x.png",
-            "pic_type":"9",
+            "pic_type":"4",
             "rank":6,
             "sub_class_id":"105",
             "sub_class_name":"体育运动QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"106",
             "name":"文化QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/newThemePic\/renwen.png",
-            "pic_type":"7",
+            "pic_type":"5",
             "rank":1,
             "sub_class_id":"106",
             "sub_class_name":"文化QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"107",
             "name":"财经QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/newThemePic\/caijing.png",
-            "pic_type":"7",
+            "pic_type":"5",
             "rank":2,
             "sub_class_id":"107",
             "sub_class_name":"财经QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"108",
             "name":"儿童QT",
             "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/newThemePic\/ertong.png",
-            "pic_type":"7",
+            "pic_type":"5",
             "rank":3,
             "sub_class_id":"108",
             "sub_class_name":"儿童QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
             "id":"109",
             "name":"特别推荐QT",
             "pic_url":null,
-            "pic_type":"8",
+            "pic_type":"6",
             "rank":1,
             "sub_class_id":"109",
             "sub_class_name":"特别推荐QT",
-            "pic_descrption":null,
-            "source":"蜻蜓FM"
+            "source_name":"qtfm",
+            "pic_descrption":null
         },
         {
-            "id": "11",
-            "name": "新闻",
-            "pic_url": "http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%96%B0%E9%97%BBicon@3x.png",
-            "pic_type": "4",
-            "rank": 1,
-            "sub_class_id": "10",
-            "sub_class_name": "新闻",
-            "pic_descrption": null,
-            "source":"喜马拉雅"
-
+            "id":"11",
+            "name":"新闻",
+            "pic_url":"http:\/\/autopre.openspeech.cn\/static\/package\/pic\/xiaofeiyu\/jiemu\/%E6%96%B0%E9%97%BBicon@3x.png",
+            "pic_type":"4",
+            "rank":1,
+            "sub_class_id":"10",
+            "sub_class_name":"新闻",
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"12",
@@ -152,8 +151,8 @@
             "rank":2,
             "sub_class_id":"11",
             "sub_class_name":"商业财经",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"13",
@@ -163,8 +162,8 @@
             "rank":3,
             "sub_class_id":"12",
             "sub_class_name":"汽车知识",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"14",
@@ -174,8 +173,8 @@
             "rank":4,
             "sub_class_id":"13",
             "sub_class_name":"相声段子",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"15",
@@ -185,8 +184,8 @@
             "rank":5,
             "sub_class_id":"14",
             "sub_class_name":"儿童启智",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"16",
@@ -196,8 +195,8 @@
             "rank":6,
             "sub_class_id":"15",
             "sub_class_name":"运动体育",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"17",
@@ -207,8 +206,8 @@
             "rank":7,
             "sub_class_id":"16",
             "sub_class_name":"历史文化",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"18",
@@ -218,8 +217,8 @@
             "rank":8,
             "sub_class_id":"17",
             "sub_class_name":"情感生活",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"19",
@@ -229,8 +228,8 @@
             "rank":9,
             "sub_class_id":"18",
             "sub_class_name":"有声小说",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"2",
@@ -240,8 +239,8 @@
             "rank":2,
             "sub_class_id":"1",
             "sub_class_name":"最新跟新",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"20",
@@ -251,8 +250,8 @@
             "rank":10,
             "sub_class_id":"19",
             "sub_class_name":"健康养生",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"21",
@@ -262,8 +261,8 @@
             "rank":11,
             "sub_class_id":"20",
             "sub_class_name":"IT科技",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"22",
@@ -273,8 +272,8 @@
             "rank":3,
             "sub_class_id":"25",
             "sub_class_name":"新技能",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"23",
@@ -284,8 +283,8 @@
             "rank":1,
             "sub_class_id":"22",
             "sub_class_name":"人文",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"24",
@@ -295,8 +294,8 @@
             "rank":2,
             "sub_class_id":"23",
             "sub_class_name":"财经",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"25",
@@ -306,8 +305,8 @@
             "rank":3,
             "sub_class_id":"24",
             "sub_class_name":"儿童",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"26",
@@ -317,8 +316,8 @@
             "rank":1,
             "sub_class_id":"21",
             "sub_class_name":"今日推荐",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"27",
@@ -328,8 +327,8 @@
             "rank":12,
             "sub_class_id":"30",
             "sub_class_name":"英语教材",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"3",
@@ -339,8 +338,8 @@
             "rank":1,
             "sub_class_id":"2",
             "sub_class_name":"今日最火啊",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"30",
@@ -350,8 +349,8 @@
             "rank":4,
             "sub_class_id":"31",
             "sub_class_name":"娱乐",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"31",
@@ -361,8 +360,8 @@
             "rank":5,
             "sub_class_id":"32",
             "sub_class_name":"相声",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"32",
@@ -372,8 +371,8 @@
             "rank":6,
             "sub_class_id":"33",
             "sub_class_name":"小说",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"33",
@@ -383,8 +382,8 @@
             "rank":7,
             "sub_class_id":"34",
             "sub_class_name":"读书",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"34",
@@ -394,8 +393,8 @@
             "rank":8,
             "sub_class_id":"35",
             "sub_class_name":"旅行",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"35",
@@ -405,8 +404,8 @@
             "rank":9,
             "sub_class_id":"36",
             "sub_class_name":"情感",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"36",
@@ -416,8 +415,8 @@
             "rank":10,
             "sub_class_id":"37",
             "sub_class_name":"汽车",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"37",
@@ -427,8 +426,8 @@
             "rank":11,
             "sub_class_id":"38",
             "sub_class_name":"科技",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"38",
@@ -438,8 +437,8 @@
             "rank":12,
             "sub_class_id":"39",
             "sub_class_name":"头条",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"39",
@@ -449,8 +448,8 @@
             "rank":13,
             "sub_class_id":"40",
             "sub_class_name":"外语",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"4",
@@ -460,8 +459,8 @@
             "rank":1,
             "sub_class_id":"3",
             "sub_class_name":"飞鱼节目",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"5",
@@ -471,8 +470,8 @@
             "rank":1,
             "sub_class_id":"4",
             "sub_class_name":"热点",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"6",
@@ -482,8 +481,8 @@
             "rank":2,
             "sub_class_id":"5",
             "sub_class_name":"听新闻",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"7",
@@ -493,8 +492,8 @@
             "rank":3,
             "sub_class_id":"6",
             "sub_class_name":"读书会",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"8",
@@ -504,8 +503,8 @@
             "rank":4,
             "sub_class_id":"7",
             "sub_class_name":"萌娃控",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         },
         {
             "id":"9",
@@ -515,8 +514,8 @@
             "rank":5,
             "sub_class_id":"8",
             "sub_class_name":"段子控",
-            "pic_descrption":null,
-            "source":"喜马拉雅"
+            "source_name":"xmly",
+            "pic_descrption":null
         }
     ]
 }

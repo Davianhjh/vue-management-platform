@@ -6,8 +6,8 @@
             <el-select v-model="listQuery.pic_type" placeholder="模块类别" clearable style="width: 110px" class="filter-item">
                 <el-option v-for="item in picTypeOptions" :key="item" :label="item" :value="item"/>
             </el-select>
-            <el-select v-model="listQuery.source" placeholder="模块来源" clearable style="width: 110px" class="filter-item">
-                <el-option v-for="item in sourceOptions" :key="item" :label="item" :value="item"/>
+            <el-select v-model="listQuery.source_name" placeholder="模块来源" clearable style="width: 110px" class="filter-item">
+                <el-option v-for="item in sourceOptions" :key="item.key" :label="item.label" :value="item.label"/>
             </el-select>
             <el-select v-model="listQuery.sort" style="width: 100px" clearable class="filter-item" @change="handleSort">
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
@@ -122,7 +122,7 @@
 
                 <el-table-column label="来源" align="center" width="90">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.source }}</span>
+                        <span>{{ scope.row.source_name | sourceFilter }}</span>
                     </template>
                 </el-table-column>
 
@@ -172,8 +172,8 @@
                 <el-row type="flex" class="row-bg">
                     <el-col>
                         <el-form-item label="模块来源">
-                            <el-select v-model="form.source" placeholder="模块来源" clearable style="width: 110px" class="filter-item">
-                                <el-option v-for="item in sourceOptions" :key="item" :label="item" :value="item"/>
+                            <el-select v-model="form.source_name" placeholder="模块来源" clearable style="width: 110px" class="filter-item">
+                                <el-option v-for="item in sourceOptions" :key="item.key" :label="item.label" :value="item.key"/>
                             </el-select>
                         </el-form-item>
                     </el-col>
@@ -351,7 +351,7 @@
                     limit: 20,
                     name: undefined,
                     pic_type: undefined,
-                    source: undefined,
+                    source_name: undefined,
                     sort: undefined,
                 },
                 picTypeOptions: ['特别推荐', '主题', '分类'],
@@ -363,7 +363,10 @@
                     {label: '特别推荐', key: '8'},
                     {label: '分类', key: '9'}
                 ],*/
-                sourceOptions: ['喜马拉雅', '蜻蜓FM'],
+                sourceOptions: [
+                    { label: '喜马拉雅', key: 'xmly' },
+                    { label: '蜻蜓FM', key: 'qtfm' }
+                ],
                 sortOptions: [{ label: 'rank升序', key: '+rank' }, { label: 'rank降序', key: '-rank' }],
                 albumSourceOptions: [
                     { label: '喜马拉雅', key: 'xmly' },
@@ -378,7 +381,7 @@
                     sub_class_id: '',
                     sub_class_name: '',
                     pic_descrption: '',
-                    source: ''
+                    source_name: ''
                 },
                 albumForm: {
                     id: '',
@@ -435,7 +438,7 @@
                     sub_class_id: '',
                     sub_class_name: '',
                     pic_descrption: '',
-                    source: ''
+                    source_name: ''
                 }
             },
             handleBatch() {
@@ -455,7 +458,7 @@
                     sub_class_id: item.sub_class_id,
                     sub_class_name: item.sub_class_name,
                     pic_descrption: item.pic_descrption,
-                    source: item.source
+                    source_name: item.source_name
                 };
             },
             // 保存编辑

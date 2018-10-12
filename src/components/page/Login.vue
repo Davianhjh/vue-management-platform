@@ -14,9 +14,8 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <el-button type="primary" @click="isLogin('ruleForm')">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
             </el-form>
         </div>
     </div>
@@ -26,9 +25,11 @@
     export default {
         data: function(){
             return {
+                url: './static/vueLogin.json',
                 ruleForm: {
-                    username: 'admin',
-                    password: '123123'
+                    username: '',
+                    password: '',
+                    error: ''
                 },
                 rules: {
                     username: [
@@ -41,8 +42,13 @@
             }
         },
         methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
+            isLogin(formName) {
+                console.log(formName.username);
+                console.log(formName.password);
+                this.$axios.get(this.url).then((response) => {
+                    return;
+                });
+/*                this.$refs[formName].validate((valid) => {
                     if (valid) {
                         localStorage.setItem('ms_username',this.ruleForm.username);
                         this.$router.push('/');
@@ -50,7 +56,7 @@
                         console.log('error submit!!');
                         return false;
                     }
-                });
+                });*/
             }
         }
     }
