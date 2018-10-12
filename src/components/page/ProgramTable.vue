@@ -31,7 +31,8 @@
                     <template slot-scop="scope">
                         <el-button type="danger" size="mini" @click="handleAlbumBatch">批量删除</el-button>
                         <el-button type="success" size="mini" @click="handleAlbumDownload">导出专辑</el-button>
-                        <el-button :type="albumRankType" size="mini" :disabled="albumRankStatus" @click="confirmAlbumRank">确定顺序</el-button>
+                        <el-button type="primary" size="mini" @click="handleAlbumCreate">添加专辑</el-button>
+                        <el-button :type="albumRankType" size="mini" style="margin-left: 1020px;" :disabled="albumRankStatus" @click="confirmAlbumRank">确定顺序</el-button>
                         <el-button type="primary" size="mini" @click="modifyAlbumRank">调整顺序</el-button>
                         <el-table
                             :data="albumData"
@@ -595,21 +596,35 @@
                     this.albumData[index + 1] = item;
                 }
             },
+            handleAlbumCreate() {
+                this.editAlbumVisible = true;
+                this.albumForm = {
+                    id: '',
+                    album_name: '',
+                    cover: '',
+                    album_id: '',
+                    host_name: '',
+                    source: '',
+                    sub_class_id: '',
+                    album_dscp: '',
+                    album_heat: ''
+                };
+            },
             // 确定顺序修改
             confirmAlbumRank() {
                 if (this.editAlbumRankStatus) {
                     // commit the albumData
-                    this.albumRankStatus = true;
-                    this.albumRankType = 'primary';
-                    this.adjustAlbumRank = true;
-                    this.adjustAlbumRankColor = {
-                        color: `#8c939d`
-                    };
-                    this.editAlbumRankStatus = false;
-                    this.modifyAlbumRankData = [];
                 } else {
                     this.albumData = this.modifyAlbumRankData;
                 }
+                this.albumRankStatus = true;
+                this.albumRankType = 'primary';
+                this.adjustAlbumRank = true;
+                this.adjustAlbumRankColor = {
+                    color: `#8c939d`
+                };
+                this.editAlbumRankStatus = false;
+                this.modifyAlbumRankData = [];
             },
             // 修改album
             handleAlbumEdit(index, row) {
