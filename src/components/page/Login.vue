@@ -9,12 +9,12 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')">
+                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="isLogin(ruleForm)">
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="isLogin('ruleForm')">登录</el-button>
+                    <el-button type="primary" @click="isLogin(ruleForm)">登录</el-button>
                 </div>
             </el-form>
         </div>
@@ -25,11 +25,10 @@
     export default {
         data: function(){
             return {
-                url: './static/vueLogin.json',
+                url: '../static/vueLogin.json',
                 ruleForm: {
                     username: '',
                     password: '',
-                    error: ''
                 },
                 rules: {
                     username: [
@@ -43,20 +42,22 @@
         },
         methods: {
             isLogin(formName) {
-                console.log(formName.username);
-                console.log(formName.password);
-                this.$axios.get(this.url).then((response) => {
-                    return;
-                });
-/*                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',this.ruleForm.username);
-                        this.$router.push('/');
+                this.$axios.get(this.url).then((res) => {
+                    console.log(res.data);
+                    if (res.data !== null &&
+                        res.data.username === formName.username &&
+                        res.data.password === formName.password) {
+
+                        localStorage.setItem("access_token", res.data.access_token);
+                        this.$router.push('/index');
+
                     } else {
-                        console.log('error submit!!');
-                        return false;
+                        alert('请输入正确的用户名和密码！！！');
+                        formName.username = '';
+                        formName.password = '';
+
                     }
-                });*/
+                }).then((error)=> this.error = error);
             }
         }
     }

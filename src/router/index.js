@@ -7,12 +7,12 @@ export default new Router({
     routes: [
         {
             path: '/',
-            // redirect: '/dashboard'
-            redirect: '/table'
+            redirect: '/login'
         },
         {
-            path: '/',
-            component: resolve => require(['../components/common/Home.vue'], resolve),
+            path: '/index',
+            component: () => import('@/components/common/Home.vue'),
+            redirect: '/table',
             meta: { title: '自述文件' },
             children:[
                 {
@@ -27,23 +27,26 @@ export default new Router({
                 {
                     path: '/tabs',
                     component: () => import('@/components/page/ProgramTable.vue'),
-                    meta: { title: '节目配置' }
+                    meta: {
+                        title: '节目配置',
+                        requireAuth: true
+                    }
                 },
                 {
                     path: '/404',
-                    component: resolve => require(['../components/page/404.vue'], resolve),
+                    component: () => import('@/components/page/404.vue'),
                     meta: { title: '404' }
                 },
                 {
                     path: '/403',
-                    component: resolve => require(['../components/page/403.vue'], resolve),
+                    component: () => import('@/components/page/403.vue'),
                     meta: { title: '403' }
-                }
+                },
             ]
         },
         {
             path: '/login',
-            component: resolve => require(['../components/page/Login.vue'], resolve)
+            component: () => import('@/components/page/Login.vue'),
         },
         {
             path: '*',

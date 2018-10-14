@@ -1,22 +1,22 @@
 <template>
-    <div class="table">
-        <div class="container">
-            <el-button type="danger" icon="delete" class="filter-item" @click="handleBatch">批量失效</el-button>
-            <el-input placeholder="Banner标题" v-model="listQuery.title" style="width: 300px;" class="filter-item" @keyup.enter.native="handleFilter"/>
-            <el-select v-model="listQuery.platform" placeholder="平台类型" clearable style="width: 110px" class="filter-item">
+    <div class="table" style="width: 99%">
+        <div class="container" style="width: 96%">
+            <el-button type="danger" style="width: 7%" icon="delete" class="filter-item" @click="handleBatch">批量失效</el-button>
+            <el-input placeholder="Banner标题" v-model="listQuery.title" style="width: 18%;" class="filter-item" @keyup.enter.native="handleFilter"/>
+            <el-select v-model="listQuery.platform" placeholder="平台类型" clearable style="width: 9%" class="filter-item">
                 <el-option v-for="item in platformOptions" :key="item.key" :label="item.label" :value="item.label"/>
             </el-select>
-            <el-select v-model="listQuery.status" placeholder="状态" clearable style="width: 80px" class="filter-item" @change="handleFilter">
+            <el-select v-model="listQuery.status" placeholder="状态" clearable style="width: 7%" class="filter-item" @change="handleFilter">
                 <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
-            <el-select v-model="listQuery.sort" placeholder="排序" clearable style="width: 100px" class="filter-item" @change="handleSort">
+            <el-select v-model="listQuery.sort" placeholder="排序" clearable style="width: 9%" class="filter-item" @change="handleSort">
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
-            <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
-            <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
-            <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
-            <el-button class="filter-item" style="margin-left: 450px;" :type="rankType" :disabled="rankStatus" @click="confirmRank" >确定顺序</el-button>
-            <el-button class="filter-item" style="margin-left: 10px;" type="primary" @click="modifyRank">调整顺序</el-button>
+            <el-button v-waves class="filter-item" style="width: 6%" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
+            <el-button class="filter-item" style="width: 6%;margin-left: 0.1%;" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
+            <el-button v-waves :loading="downloadLoading" class="filter-item" style="width: 6%;margin-left: 0.1%;" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
+            <el-button class="filter-item" style="width: 7%;margin-left: 14%;" :type="rankType" :disabled="rankStatus" @click="confirmRank" >确定顺序</el-button>
+            <el-button class="filter-item" style="width: 7%;margin-left: 0.1%;" type="primary" @click="modifyRank">调整顺序</el-button>
 
 <!--        <el-table
                 :data="data"
@@ -31,51 +31,51 @@
                 class="table"
                 ref="multipleTable"
                 @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column label="ID" align="center" width="80">
+                <el-table-column type="selection" width="40%" align="center"></el-table-column>
+                <el-table-column label="ID" align="center" width="70%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="标题" align="left" width="205">
+                <el-table-column label="标题" align="left" width="140%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.title }}</span>
-                        <el-tag>{{ scope.row.app_name | platformFilter }}</el-tag>
+                        <el-tag>{{ scope.row.app_name | platformFliter }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="banner图片" align="center" prop="imgPath" width="140">
+                <el-table-column label="banner图片" align="center" prop="imgPath" width="130%">
                     <template slot-scope="scope">
-                        <img :src="scope.row.banner_url" style="width: 120px" height="50px">
+                        <img :src="scope.row.banner_url" style="width: 100%" height="50px">
                     </template>
                 </el-table-column>
-                <el-table-column label="banner链接" align="center" width="100">
+                <el-table-column label="banner链接" align="center" width="90%">
                     <template slot-scope="scope">
                         <a :href="scope.row.link_url"
                            target="_blank"
                            class="el-button--text">链接地址</a>
                     </template>
                 </el-table-column>
-                <el-table-column label="类型" align="center" width="90">
+                <el-table-column label="类型" align="center" width="75%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.type }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="类型ID" align="center" width="90">
+                <el-table-column label="类型ID" align="center" width="70%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.type_id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="打开动作" align="center" width="90">
+                <el-table-column label="打开动作" align="center" width="70%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.action }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="弹出样式" align="center" width="50">
+                <el-table-column label="弹出样式" align="center" width="50%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.style }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="排序" align="center" width="80">
+                <el-table-column label="排序" align="center" width="65%">
                     <template slot-scope="scope">
                         <!--<span>{{ scope.row.rank }}</span>-->
                         <span v-if="!editRankFlag">{{ scope.row.rank }}</span>
@@ -85,29 +85,29 @@
 
                     </template>
                 </el-table-column>
-                <el-table-column label="状态" class-name="status-col" width="70">
+                <el-table-column label="状态" class-name="status-col" width="65%">
                     <template slot-scope="scope">
                         <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="生效时间" align="center" width="140">
+                <el-table-column label="生效时间" align="center" width="140%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.effective_time }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="失效时间" align="center" width="140">
+                <el-table-column label="失效时间" align="center" width="140%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.expired_time }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="240" align="center">
+                <el-table-column label="操作" width="215%" align="center">
                     <template slot-scope="scope">
-                        <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button v-if="scope.row.status!=='生效'" size="mini" type="success" @click="handlePublish(scope.$index, scope.row)">生效</el-button>
-                        <el-button v-if="scope.row.status!=='失效'" size="mini" @click="handleInvalid(scope.$index, scope.row)">失效</el-button>
-                        <el-button v-if="scope.row.status!=='删除'" size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="primary" size="mini" style="width: 28%" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button v-if="scope.row.status!=='生效'" size="mini" style="width: 28%" type="success" @click="handlePublish(scope.$index, scope.row)">生效</el-button>
+                        <el-button v-if="scope.row.status!=='失效'" size="mini" style="width: 28%" @click="handleInvalid(scope.$index, scope.row)">失效</el-button>
+                        <el-button v-if="scope.row.status!=='删除'" size="mini" style="width: 28%" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -118,60 +118,60 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="90px">
+        <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
+            <el-form ref="form" :model="form" label-width="30%">
                 <el-row type="flex" class="row-bg">
                     <el-col>
-                        <el-form-item label="标题">
-                            <el-input v-model="form.title" style="width: 170px"></el-input>
+                        <el-form-item label="标题" style="margin-left: 10%">
+                            <el-input v-model="form.title" style="width: 100%"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col>
                         <el-form-item label="平台类型">
-                            <el-select v-model="form.app_name" class="filter-item" placeholder="请选择平台类型">
+                            <el-select v-model="form.app_name" class="filter-item" style="width: 80%" placeholder="请选择平台类型">
                                 <el-option v-for="item in platformOptions" :key="item.key" :label="item.label" :value="item.key"/>
                             </el-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="banner图片">
-                    <el-input v-model="form.banner_url" style="width: 338px"></el-input>
-                    <el-button type="primary" @click="handlePictureUpload">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
+                <el-form-item label="banner图片" style="width: 60%">
+                    <el-input v-model="form.banner_url" style="width: 185%"></el-input>
+                    <el-button type="primary" style="width: 40%;" @click="handlePictureUpload">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
                 </el-form-item>
-                <el-form-item label="banner链接">
-                    <el-input v-model="form.link_url"></el-input>
+                <el-form-item label="banner链接" style="width: 60%">
+                    <el-input v-model="form.link_url" style="width:185%;"></el-input>
                 </el-form-item>
-                <el-form-item label="类型">
-                    <el-select v-model="form.type" class="filter-item" placeholder="请选择类型">
+                <el-form-item label="类型" style="width: 60%">
+                    <el-select v-model="form.type" class="filter-item" style="width: 80%" placeholder="请选择类型">
                         <el-option v-for="item in typeOption" :key="item" :label="item" :value="item"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="类型ID">
-                    <el-input v-model="form.type_id" style="width: 215px"></el-input>
+                <el-form-item label="类型ID" style="width: 60%">
+                    <el-input v-model="form.type_id" style="width: 80%"></el-input>
                 </el-form-item>
-                <el-form-item label="打开动作">
-                    <el-select v-model="form.action" class="filter-item" placeholder="请选择打开动作">
+                <el-form-item label="打开动作" style="width: 60%">
+                    <el-select v-model="form.action" class="filter-item" style="width: 80%" placeholder="请选择打开动作">
                         <el-option v-for="item in actionOption" :key="item" :label="item" :value="item"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="弹出样式">
-                    <el-select v-model="form.style" class="filter-item" placeholder="请选择样式">
+                <el-form-item label="弹出样式" style="width: 60%">
+                    <el-select v-model="form.style" class="filter-item" style="width: 80%" placeholder="请选择样式">
                         <el-option v-for="item in styleOption" :key="item.key" :label="item.label" :value="item.label"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="排序">
-                    <el-input v-model="form.rank" style="width: 215px"></el-input>
+                <el-form-item label="排序" style="width: 60%">
+                    <el-input v-model="form.rank" style="width: 80%"></el-input>
                 </el-form-item>
-                <el-form-item label="状态">
-                    <el-select v-model="form.status" class="filter-item" placeholder="请选择状态">
+                <el-form-item label="状态" style="width: 60%">
+                    <el-select v-model="form.status" class="filter-item" style="width: 80%" placeholder="请选择状态">
                         <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.label"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="生效时间">
-                    <el-date-picker type="datetime" v-model="form.effective_time" placeholder="选择日期" ></el-date-picker>
+                <el-form-item label="生效时间" style="width: 60%">
+                    <el-date-picker type="datetime" v-model="form.effective_time" style="width: 80%" placeholder="选择日期" ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="失效时间">
-                    <el-date-picker type="datetime" v-model="form.expired_time" placeholder="选择日期" ></el-date-picker>
+                <el-form-item label="失效时间" style="width: 60%">
+                    <el-date-picker type="datetime" v-model="form.expired_time" style="width: 80%" placeholder="选择日期" ></el-date-picker>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -231,7 +231,7 @@
                 };
                 return statusMap[status];
             },
-            platformFilter(app_name) {
+            platformFliter(app_name) {
                 const platformMap = {
                     feiyu_IOS: 'IOS',
                     feiyu_Android: 'Android'

@@ -1,22 +1,22 @@
 <template>
-    <div class="table">
-        <div class="container">
-            <el-button type="danger" icon="delete" class="filter-item" @click="handleBatch">批量删除</el-button>
-            <el-input placeholder="模块名称" v-model="listQuery.name" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"/>
-            <el-select v-model="listQuery.pic_type" placeholder="模块类别" clearable style="width: 110px" class="filter-item">
+    <div class="table" style="width: 99%">
+        <div class="container" style="width: 96%">
+            <el-button type="danger" icon="delete" class="filter-item" style="width: 7%" @click="handleBatch">批量删除</el-button>
+            <el-input placeholder="模块名称" v-model="listQuery.name" style="width: 18%" class="filter-item" @keyup.enter.native="handleFilter"/>
+            <el-select v-model="listQuery.pic_type" placeholder="模块类别" clearable style="width: 8%" class="filter-item">
                 <el-option v-for="item in picTypeOptions" :key="item" :label="item" :value="item"/>
             </el-select>
-            <el-select v-model="listQuery.source_name" placeholder="模块来源" clearable style="width: 110px" class="filter-item">
+            <el-select v-model="listQuery.source_name" placeholder="模块来源" clearable style="width: 8%" class="filter-item">
                 <el-option v-for="item in sourceOptions" :key="item.key" :label="item.label" :value="item.label"/>
             </el-select>
-            <el-select v-model="listQuery.sort" style="width: 100px" clearable class="filter-item" @change="handleSort">
+            <el-select v-model="listQuery.sort" style="width: 8%" clearable class="filter-item" @change="handleSort">
                 <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
             </el-select>
-            <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
-            <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
-            <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
-            <el-button class="filter-item" style="margin-left: 520px;" :type="rankType" :disabled="rankStatus" @click="confirmRank" >确定顺序</el-button>
-            <el-button class="filter-item" style="margin-left: 10px;" type="primary" @click="modifyRank">调整顺序</el-button>
+            <el-button v-waves class="filter-item" type="primary" style="width: 6%" icon="el-icon-search" @click="handleFilter">搜索</el-button>
+            <el-button class="filter-item" style="margin-left: 0.1%;width: 6%" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
+            <el-button v-waves :loading="downloadLoading" class="filter-item" style="margin-left: 0.1%;width: 6%" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
+            <el-button class="filter-item" style="margin-left: 17%;width: 6%" :type="rankType" :disabled="rankStatus" @click="confirmRank" >确定顺序</el-button>
+            <el-button class="filter-item" style="margin-left: 0.1%;width: 6%" type="primary" @click="modifyRank">调整顺序</el-button>
 
             <el-table
                 :data="tableData"
@@ -29,11 +29,11 @@
 
                 <el-table-column type="expand">
                     <template slot-scop="scope">
-                        <el-button type="danger" size="mini" @click="handleAlbumBatch">批量删除</el-button>
-                        <el-button type="success" size="mini" @click="handleAlbumDownload">导出专辑</el-button>
-                        <el-button type="primary" size="mini" @click="handleAlbumCreate">添加专辑</el-button>
-                        <el-button :type="albumRankType" size="mini" style="margin-left: 1020px;" :disabled="albumRankStatus" @click="confirmAlbumRank">确定顺序</el-button>
-                        <el-button type="primary" size="mini" @click="modifyAlbumRank">调整顺序</el-button>
+                        <el-button type="danger" size="mini" style="width: 7%" @click="handleAlbumBatch">批量删除</el-button>
+                        <el-button type="success" size="mini" style="width: 7%;margin-left: 0.2%" @click="handleAlbumDownload">导出专辑</el-button>
+                        <el-button type="primary" size="mini" style="width: 7%;margin-left: 0.2%;" @click="handleAlbumCreate">添加专辑</el-button>
+                        <el-button :type="albumRankType" size="mini" style="width: 7%;margin-left: 63%" :disabled="albumRankStatus" @click="confirmAlbumRank">确定顺序</el-button>
+                        <el-button type="primary" size="mini" style="width: 7%;margin-left: 0.2%" @click="modifyAlbumRank">调整顺序</el-button>
                         <el-table
                             :data="albumData"
                             border
@@ -42,49 +42,49 @@
                             ref="multipleTable"
                             @selection-change="handleAlbumSelectionChange">
 
-                            <el-table-column type="selection" width="55" align="center"></el-table-column>
-                            <el-table-column label="ID" align="center" width="80">
+                            <el-table-column type="selection" width="40%" align="center"></el-table-column>
+                            <el-table-column label="ID" align="center" width="60%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.id }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑名称" align="left" width="220">
+                            <el-table-column label="专辑名称" align="left" width="150%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.album_name }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="背景图片" align="center" prop="imgPath" width="140">
+                            <el-table-column label="背景图片" align="center" prop="imgPath" width="140%">
                                 <template slot-scope="scope">
-                                    <img :src="scope.row.cover" style="width: 120px" height="120px">
+                                    <img :src="scope.row.cover" style="width: 100%" height="100%">
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑ID" align="center" width="120">
+                            <el-table-column label="专辑ID" align="center" width="80%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.album_id }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主播名" align="center" width="120">
+                            <el-table-column label="主播名" align="center" width="100%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.host_name }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑来源" align="center" width="120">
+                            <el-table-column label="专辑来源" align="center" width="80%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.source | sourceFilter }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑描述" align="center" width="210">
+                            <el-table-column label="专辑描述" align="center" width="170%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.album_dscp }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑热度" align="center" width="100">
+                            <el-table-column label="专辑热度" align="center" width="80%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.album_heat }}</span>
                                 </template>
                             </el-table-column>
 
-                            <el-table-column label="操作" width="302" align="center">
+                            <el-table-column label="操作" align="center"  width="250%">
                                 <template slot-scope="scope">
                                     <el-button type="text" icon="el-icon-edit" class="green" @click="handleAlbumEdit(scope.$index, scope.row)">编辑</el-button>
                                     <el-button type="text" icon="el-icon-delete" class="red" @click="handleAlbumDelete(scope.$index, scope.row)">删除</el-button>
@@ -96,38 +96,38 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column label="ID" align="center" width="80">
+                <el-table-column type="selection" width="40%" align="center"></el-table-column>
+                <el-table-column label="ID" align="center" width="60%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="模块名称" align="left" width="250">
+                <el-table-column label="模块名称" align="left" width="200%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.name }}</span>
                         <el-tag>{{ scope.row.pic_type | picTypeFilter }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="背景图片" align="center" prop="imgPath" width="140">
+                <el-table-column label="背景图片" align="center" prop="imgPath" width="100%">
                     <template slot-scope="scope">
                         <a :href="scope.row.pic_url"
                            target="_blank"
                            class="el-button--text">查看图片</a>
                     </template>
                 </el-table-column>
-                <el-table-column label="pic_type" align="center" width="90">
+                <el-table-column label="pic_type" align="center" width="80%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.pic_type }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="来源" align="center" width="90">
+                <el-table-column label="来源" align="center" width="80%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.source_name | sourceFilter }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="rank" align="center" width="90">
+                <el-table-column label="rank" align="center" width="70%">
                     <template slot-scope="scope">
                         <span v-if="!editRankFlag">{{ scope.row.rank }}</span>
                         <span v-if="editRankFlag" class="cell-edit-input">
@@ -135,26 +135,26 @@
                         </span>
                     </template>
                 </el-table-column>
-                <el-table-column label="子类别序号" align="center" width="90">
+                <el-table-column label="子类别序号" align="center" width="90%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.sub_class_id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="子类别名称" align="center" width="130">
+                <el-table-column label="子类别名称" align="center" width="110%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.sub_class_name }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="模块描述" align="center" width="200">
+                <el-table-column label="模块描述" align="center" width="150%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.pic_description }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="307" align="center">
+                <el-table-column label="操作" width="225%" align="center">
                     <template slot-scope="scope">
-                        <el-button type="primary" icon="el-icon-document" size="medium" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button type="danger" icon="el-icon-delete" size="medium" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="primary" icon="el-icon-document" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -165,22 +165,22 @@
         </div>
 
         <!-- 编辑pic弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="90px">
+        <el-dialog title="编辑模块" :visible.sync="editVisible" width="40%">
+            <el-form ref="form" :model="form" label-width="20%">
                 <el-form-item label="模块名称">
-                    <el-input v-model="form.name" style="width: 215px"></el-input>
+                    <el-input v-model="form.name" style="width: 40%"></el-input>
                 </el-form-item>
-                <el-row type="flex" class="row-bg">
+                <el-row type="flex" class="row-bg" style="width: 100%">
                     <el-col>
-                        <el-form-item label="模块来源">
-                            <el-select v-model="form.source_name" placeholder="模块来源" clearable style="width: 110px" class="filter-item">
+                        <el-form-item label="模块来源" style="width: 130%;margin-left: 14%">
+                            <el-select v-model="form.source_name" placeholder="模块来源" clearable style="width: 50%" class="filter-item">
                                 <el-option v-for="item in sourceOptions" :key="item.key" :label="item.label" :value="item.key"/>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col>
-                        <el-form-item label="模块类别">
-                            <el-select v-model="form.pic_type" placeholder="模块类别" clearable style="width: 110px" class="filter-item">
+                        <el-form-item label="模块类别" style="width: 130%">
+                            <el-select v-model="form.pic_type" placeholder="模块类别" clearable style="width: 50%" class="filter-item">
                                 <el-option v-for="item in picTypeOptions" :key="item" :label="item" :value="item"/>
                             </el-select>
                         </el-form-item>
@@ -188,17 +188,17 @@
                 </el-row>
 
                 <el-form-item label="背景图片">
-                    <el-input v-model="form.pic_url" style="width: 338px"></el-input>
+                    <el-input v-model="form.pic_url" style="width: 70%"></el-input>
                     <el-button type="primary" @click="handlePictureUpload">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
                 </el-form-item>
                 <el-form-item label="排序">
-                    <el-input v-model="form.rank" style="width: 215px"></el-input>
+                    <el-input v-model="form.rank" style="width: 40%"></el-input>
                 </el-form-item>
                 <el-form-item label="子模块名称">
-                    <el-input v-model="form.sub_class_name" style="width: 215px"></el-input>
+                    <el-input v-model="form.sub_class_name" style="width: 40%"></el-input>
                 </el-form-item>
                 <el-form-item label="模块描述">
-                    <el-input v-model="form.pic_descrption" style="width: 215px"></el-input>
+                    <el-input v-model="form.pic_descrption" style="width: 92%"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -227,33 +227,33 @@
 
         <!-- 编辑album弹出框 -->
         <el-dialog title="编辑Album" :visible.sync="editAlbumVisible" width="30%">
-            <el-form ref="form" :model="albumForm" label-width="90px">
+            <el-form ref="form" :model="albumForm" label-width="20%">
                 <el-form-item label="专辑名称">
-                    <el-input v-model="albumForm.album_name" style="width: 215px"></el-input>
+                    <el-input v-model="albumForm.album_name" style="width: 80%"></el-input>
                 </el-form-item>
                 <el-row type="flex" class="row-bg">
                     <el-col>
                         <el-form-item label="专辑来源">
-                            <el-select v-model="albumForm.source" placeholder="专辑来源" clearable style="width: 110px" class="filter-item">
+                            <el-select v-model="albumForm.source" placeholder="专辑来源" clearable style="width: 80%" class="filter-item">
                                 <el-option v-for="item in albumSourceOptions" :key="item.key" :label="item.label" :value="item.key"/>
                             </el-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-form-item label="专辑ID">
-                    <el-input v-model="albumForm.album_id" style="width: 215px"></el-input>
+                    <el-input v-model="albumForm.album_id" style="width: 80%"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑封面">
-                    <el-input v-model="albumForm.cover" style="width: 400px"></el-input>
+                    <el-input v-model="albumForm.cover" style="width: 80%"></el-input>
                 </el-form-item>
                 <el-form-item label="主播名">
-                    <el-input v-model="albumForm.host_name" style="width: 215px"></el-input>
+                    <el-input v-model="albumForm.host_name" style="width: 80%"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑描述">
-                    <el-input v-model="albumForm.album_dscp" style="width: 215px"></el-input>
+                    <el-input v-model="albumForm.album_dscp" style="width: 80%"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑热度">
-                    <el-input v-model="albumForm.album_heat" style="width: 215px"></el-input>
+                    <el-input v-model="albumForm.album_heat" style="width: 80%"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
