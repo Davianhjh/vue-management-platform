@@ -11,13 +11,13 @@ export default new Router({
         },
         {
             path: '/index',
-            component: () => import('@/components/common/Home.vue'),
+            component: resolve => require(['../components/common/Home.vue'], resolve),
             redirect: '/table',
             meta: { title: '自述文件' },
             children:[
                 {
                     path: '/table',
-                    component: () => import('@/components/page/BaseTable.vue'),
+                    component: resolve => require(['../components/page/BaseTable.vue'], resolve),
                     name: 'Banner配置',
                     meta: {
                         title: 'Banner配置',
@@ -26,7 +26,7 @@ export default new Router({
                 },
                 {
                     path: '/tabs',
-                    component: () => import('@/components/page/ProgramTable.vue'),
+                    component: resolve => require(['../components/page/ProgramTable.vue'], resolve),
                     meta: {
                         title: '节目配置',
                         requireAuth: true
@@ -34,12 +34,12 @@ export default new Router({
                 },
                 {
                     path: '/404',
-                    component: () => import('@/components/page/404.vue'),
+                    component: resolve => require(['../components/page/404.vue'], resolve),
                     meta: { title: '404' }
                 },
                 {
                     path: '/403',
-                    component: () => import('@/components/page/403.vue'),
+                    component: resolve => require(['../components/page/403.vue'], resolve),
                     meta: { title: '403' }
                 },
             ]

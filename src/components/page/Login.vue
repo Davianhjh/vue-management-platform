@@ -43,21 +43,17 @@
         methods: {
             isLogin(formName) {
                 this.$axios.get(this.url).then((res) => {
-                    console.log(res.data);
                     if (res.data !== null &&
                         res.data.username === formName.username &&
                         res.data.password === formName.password) {
-
-                        localStorage.setItem("access_token", res.data.access_token);
+                        localStorage.setItem("accessToken", res.data.accessToken);
                         this.$router.push('/index');
-
                     } else {
                         alert('请输入正确的用户名和密码！！！');
                         formName.username = '';
                         formName.password = '';
-
                     }
-                }).then((error)=> this.error = error);
+                });
             }
         }
     }
@@ -99,10 +95,5 @@
         width:100%;
         height:36px;
         margin-bottom: 10px;
-    }
-    .login-tips{
-        font-size:12px;
-        line-height:30px;
-        color:#fff;
     }
 </style>

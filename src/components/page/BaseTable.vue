@@ -31,16 +31,16 @@
                 class="table"
                 ref="multipleTable"
                 @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="40%" align="center"></el-table-column>
-                <el-table-column label="ID" align="center" width="70%">
+                <el-table-column type="selection" width="50%" align="center"></el-table-column>
+                <el-table-column label="ID" align="center" width="75%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="标题" align="left" width="140%">
+                <el-table-column label="标题" align="left" width="180%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.title }}</span>
-                        <el-tag>{{ scope.row.app_name | platformFliter }}</el-tag>
+                        <el-tag>{{ scope.row.app_name | platformFilter }}</el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column label="banner图片" align="center" prop="imgPath" width="130%">
@@ -60,49 +60,48 @@
                         <span>{{ scope.row.type }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="类型ID" align="center" width="70%">
+                <el-table-column label="类型ID" align="center" width="75%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.type_id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="打开动作" align="center" width="70%">
+                <el-table-column label="打开动作" align="center" width="75%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.action }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="弹出样式" align="center" width="50%">
+                <el-table-column label="弹出样式" align="center" width="75%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.style }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="排序" align="center" width="65%">
+                <el-table-column label="排序" align="center" width="75%">
                     <template slot-scope="scope">
                         <!--<span>{{ scope.row.rank }}</span>-->
-                        <span v-if="!editRankFlag">{{ scope.row.rank }}</span>
-                        <span v-if="editRankFlag" class="cell-edit-input">
+                        <span v-if="rankStatus">{{ scope.row.rank }}</span>
+                        <span v-if="!rankStatus" class="cell-edit-input">
                             <el-input size="small" v-model="scope.row.rank" placeholder="" @change="handleEditRank(scope.$index, scope.row.rank)"></el-input>
                         </span>
-
                     </template>
                 </el-table-column>
-                <el-table-column label="状态" class-name="status-col" width="65%">
+                <el-table-column label="状态" align="center" class-name="status-col" width="75%">
                     <template slot-scope="scope">
                         <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="生效时间" align="center" width="140%">
+                <el-table-column label="生效时间" align="center" width="150%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.effective_time }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="失效时间" align="center" width="140%">
+                <el-table-column label="失效时间" align="center" width="150%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.expired_time }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="215%" align="center">
+                <el-table-column label="操作" width="220%" align="center">
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" style="width: 28%" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button v-if="scope.row.status!=='生效'" size="mini" style="width: 28%" type="success" @click="handlePublish(scope.$index, scope.row)">生效</el-button>
@@ -112,71 +111,70 @@
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination background @current-change="handleCurrentChange" layout="prev, pager, next" :total="100">
-                </el-pagination>
+                <el-pagination background @current-change="handleCurrentChange" layout="prev, pager, next" :total="100"></el-pagination>
             </div>
         </div>
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
-            <el-form ref="form" :model="form" label-width="30%">
+            <el-form ref="form" :model="ruleForm" :rules="rules" label-width="30%">
                 <el-row type="flex" class="row-bg">
                     <el-col>
-                        <el-form-item label="标题" style="margin-left: 10%">
-                            <el-input v-model="form.title" style="width: 100%"></el-input>
+                        <el-form-item label="标题" style="margin-left: 10%" prop="title">
+                            <el-input v-model="ruleForm.title" style="width: 100%"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col>
-                        <el-form-item label="平台类型">
-                            <el-select v-model="form.app_name" class="filter-item" style="width: 80%" placeholder="请选择平台类型">
+                        <el-form-item label="平台类型" prop="app_name">
+                            <el-select v-model="ruleForm.app_name" class="filter-item" style="width: 80%" placeholder="请选择平台类型">
                                 <el-option v-for="item in platformOptions" :key="item.key" :label="item.label" :value="item.key"/>
                             </el-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="banner图片" style="width: 60%">
-                    <el-input v-model="form.banner_url" style="width: 185%"></el-input>
+                <el-form-item label="banner图片" style="width: 60%" prop="banner_url">
+                    <el-input v-model="ruleForm.banner_url" style="width: 185%"></el-input>
                     <el-button type="primary" style="width: 40%;" @click="handlePictureUpload">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
                 </el-form-item>
-                <el-form-item label="banner链接" style="width: 60%">
-                    <el-input v-model="form.link_url" style="width:185%;"></el-input>
+                <el-form-item label="banner链接" style="width: 60%" prop="link_url">
+                    <el-input v-model="ruleForm.link_url" style="width:185%;"></el-input>
                 </el-form-item>
-                <el-form-item label="类型" style="width: 60%">
-                    <el-select v-model="form.type" class="filter-item" style="width: 80%" placeholder="请选择类型">
+                <el-form-item label="类型" style="width: 60%" prop="type">
+                    <el-select v-model="ruleForm.type" class="filter-item" style="width: 80%" placeholder="请选择类型">
                         <el-option v-for="item in typeOption" :key="item" :label="item" :value="item"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="类型ID" style="width: 60%">
-                    <el-input v-model="form.type_id" style="width: 80%"></el-input>
+                <el-form-item label="类型ID" style="width: 60%" prop="type_id">
+                    <el-input v-model="ruleForm.type_id" style="width: 80%"></el-input>
                 </el-form-item>
-                <el-form-item label="打开动作" style="width: 60%">
-                    <el-select v-model="form.action" class="filter-item" style="width: 80%" placeholder="请选择打开动作">
+                <el-form-item label="打开动作" style="width: 60%" prop="action">
+                    <el-select v-model="ruleForm.action" class="filter-item" style="width: 80%" placeholder="请选择打开动作">
                         <el-option v-for="item in actionOption" :key="item" :label="item" :value="item"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="弹出样式" style="width: 60%">
-                    <el-select v-model="form.style" class="filter-item" style="width: 80%" placeholder="请选择样式">
+                <el-form-item label="弹出样式" style="width: 60%" prop="style">
+                    <el-select v-model="ruleForm.style" class="filter-item" style="width: 80%" placeholder="请选择样式">
                         <el-option v-for="item in styleOption" :key="item.key" :label="item.label" :value="item.label"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="排序" style="width: 60%">
-                    <el-input v-model="form.rank" style="width: 80%"></el-input>
+                <el-form-item label="排序" style="width: 60%" prop="rank">
+                    <el-input v-model="ruleForm.rank" style="width: 80%"></el-input>
                 </el-form-item>
-                <el-form-item label="状态" style="width: 60%">
-                    <el-select v-model="form.status" class="filter-item" style="width: 80%" placeholder="请选择状态">
+                <el-form-item label="状态" style="width: 60%" prop="status">
+                    <el-select v-model="ruleForm.status" class="filter-item" style="width: 80%" placeholder="请选择状态">
                         <el-option v-for="item in statusOption" :key="item.key" :label="item.label" :value="item.label"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="生效时间" style="width: 60%">
-                    <el-date-picker type="datetime" v-model="form.effective_time" style="width: 80%" placeholder="选择日期" ></el-date-picker>
+                <el-form-item label="生效时间" style="width: 60%" prop="effective_time">
+                    <el-date-picker type="datetime" v-model="ruleForm.effective_time" style="width: 80%" placeholder="选择日期" ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="失效时间" style="width: 60%">
-                    <el-date-picker type="datetime" v-model="form.expired_time" style="width: 80%" placeholder="选择日期" ></el-date-picker>
+                <el-form-item label="失效时间" style="width: 60%" prop="expired_time">
+                    <el-date-picker type="datetime" v-model="ruleForm.expired_time" style="width: 80%" placeholder="选择日期" ></el-date-picker>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
+                <el-button type="primary" @click="saveEdit('ruleForm')">确 定</el-button>
             </span>
         </el-dialog>
 
@@ -231,7 +229,7 @@
                 };
                 return statusMap[status];
             },
-            platformFliter(app_name) {
+            platformFilter(app_name) {
                 const platformMap = {
                     feiyu_IOS: 'IOS',
                     feiyu_Android: 'Android'
@@ -253,7 +251,6 @@
                 idx: -1,
                 listLoading: true,
                 downloadLoading: false,
-                editRankFlag: false,
                 editRandStatus: false,
                 rankType: 'primary',
                 rankStatus: true,
@@ -273,7 +270,7 @@
                 actionOption: ['open', 'play'],
                 styleOption: [{label: '横屏', key: '1'}, {label: '弹出框', key: '2'}, {label: '其他', key: '3'}],
                 statusOption: [{label: '生效', key: '0'}, {label: '失效', key: '-1'}, {label: '删除', key: '-2'}],
-                form: {
+                ruleForm: {
                     id: '',
                     app_name: '',
                     title: '',
@@ -289,6 +286,44 @@
                     expired_time: new Date(),
                     inputColumn: ''
                 },
+                rules: {
+                    title: [
+                        { required: true, message: '请填写Banner标题', trigger: 'change' }
+                    ],
+                    app_name: [
+                        { required: true, message: '请选择一个平台类型', trigger: 'change' }
+                    ],
+                    banner_url: [
+                        { required: true, message: '请填写banner图片URL或者本地上传图片', trigger: 'change' }
+                    ],
+                    link_url: [
+                        { required: true, message: '请填写banner的链接地址', trigger: 'change' }
+                    ],
+                    type: [
+                        { required: true, message: '请选择一个类型', trigger: 'change' }
+                    ],
+                    type_id: [
+                        { required: true, message: '请填写一个类型Id', trigger: 'change' }
+                    ],
+                    action: [
+                        { required: true, message: '请选择一个打开动作', trigger: 'change' }
+                    ],
+                    style: [
+                        { required: true, message: '请选择一种样式', trigger: 'change' }
+                    ],
+                    rank: [
+                        { required: true, message: '请填写一个排序值', trigger: 'blur' }
+                    ],
+                    status: [
+                        { required: true, message: '请选择一种状态', trigger: 'change' }
+                    ],
+                    effective_time: [
+                        { required: true, message: '请选择生效时间', trigger: 'change' }
+                    ],
+                    expired_time: [
+                        { required: true, message: '请选择失效时间', trigger: 'change' }
+                    ]
+                }
             }
         },
         created() {
@@ -321,7 +356,7 @@
             },
             handleCreate() {
                 this.editVisible = true;
-                this.form = {
+                this.ruleForm = {
                     id: '',
                     app_name: '',
                     title: '',
@@ -341,7 +376,7 @@
                 this.editVisible = true;
                 this.idx = index;
                 let item = this.tableData[index];
-                this.form = {
+                this.ruleForm = {
                     id: index,
                     app_name: item.app_name,
                     title: item.title,
@@ -388,8 +423,8 @@
             },
             // 顺序修改
             modifyRank() {
-                this.editRankFlag = true;
                 this.rankType = 'success';
+                this.rankStatus = false;
                 this.rankStatus = false;
             },
             handleEditRank(index, val) {
@@ -405,7 +440,6 @@
                 this.modifyRankData = [];
                 this.rankType = 'primary';
                 this.rankStatus = true;
-                this.editRankFlag = false;
                 this.editRankStatus = false;
             },
             // 批量失效
@@ -432,9 +466,17 @@
             },
             // 保存编辑
             saveEdit() {
-                this.$set(this.tableData, this.idx, this.form);
+/*                this.$set(this.tableData, this.idx, this.form);
                 this.$message.success('操作成功');
-                this.editVisible = false;
+                this.editVisible = false;*/
+                this.$refs.form.validate((valid) => {
+                    if(valid){
+                        // 验证通过,调用module里的setUserInfo方法
+                        alert("验证通过")
+                    }else{
+                        alert("表达验证不合法")
+                    }
+                }).bind(this);
             },
             // 生效操作
             publishRow() {
@@ -467,7 +509,7 @@
             },
             handlePictureUpload() {
 
-            }
+            },
         }
     }
 

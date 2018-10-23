@@ -42,13 +42,13 @@
                             ref="multipleTable"
                             @selection-change="handleAlbumSelectionChange">
 
-                            <el-table-column type="selection" width="40%" align="center"></el-table-column>
-                            <el-table-column label="ID" align="center" width="60%">
+                            <el-table-column type="selection" width="50%" align="center"></el-table-column>
+                            <el-table-column label="ID" align="center" width="80%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.id }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑名称" align="left" width="150%">
+                            <el-table-column label="专辑名称" align="left" width="180%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.album_name }}</span>
                                 </template>
@@ -63,7 +63,7 @@
                                     <span>{{ scope.row.album_id }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主播名" align="center" width="100%">
+                            <el-table-column label="主播名" align="center" width="105%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.host_name }}</span>
                                 </template>
@@ -73,7 +73,17 @@
                                     <span>{{ scope.row.source | sourceFilter }}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="专辑描述" align="center" width="170%">
+                            <el-table-column label="排序" align="center" width="80%">
+                                <template slot-scope="scope">
+                                    <!--<span>{{ scope.row.rank }}</span>-->
+                                    <span v-if="albumRankStatus">{{ scope.row.rank }}</span>
+                                    <span v-if="!albumRankStatus" class="cell-edit-input">
+                                        <el-input size="small" v-model="scope.row.rank" placeholder="" @change="handleEditAlbumRank(scope.$index, scope.row.rank)"></el-input>
+                                    </span>
+                                </template>
+                            </el-table-column>
+
+                            <el-table-column label="专辑描述" align="center" width="180%">
                                 <template slot-scope="scope">
                                     <span>{{ scope.row.album_dscp }}</span>
                                 </template>
@@ -84,25 +94,25 @@
                                 </template>
                             </el-table-column>
 
-                            <el-table-column label="操作" align="center"  width="250%">
+                            <el-table-column label="操作" align="center"  width="200%">
                                 <template slot-scope="scope">
                                     <el-button type="text" icon="el-icon-edit" class="green" @click="handleAlbumEdit(scope.$index, scope.row)">编辑</el-button>
                                     <el-button type="text" icon="el-icon-delete" class="red" @click="handleAlbumDelete(scope.$index, scope.row)">删除</el-button>
-                                    <el-button type="text" icon="el-icon-lx-top" :class="adjustAlbumRankColor" :disabled="adjustAlbumRank" @click="handleAlbumMoveUp(scope.$index, scope.row)">上移</el-button>
-                                    <el-button type="text" icon="el-icon-lx-down" :class="adjustAlbumRankColor" :disabled="adjustAlbumRank" @click="handleAlbumMoveDown(scope.$index, scope.row)">下移</el-button>
+<!--                                    <el-button type="text" icon="el-icon-lx-top" :class="adjustAlbumRankColor" :disabled="adjustAlbumRank" @click="handleAlbumMoveUp(scope.$index, scope.row)">上移</el-button>
+                                    <el-button type="text" icon="el-icon-lx-down" :class="adjustAlbumRankColor" :disabled="adjustAlbumRank" @click="handleAlbumMoveDown(scope.$index, scope.row)">下移</el-button>-->
                                 </template>
                             </el-table-column>
                         </el-table>
                     </template>
                 </el-table-column>
 
-                <el-table-column type="selection" width="40%" align="center"></el-table-column>
-                <el-table-column label="ID" align="center" width="60%">
+                <el-table-column type="selection" width="50%" align="center"></el-table-column>
+                <el-table-column label="ID" align="center" width="90%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="模块名称" align="left" width="200%">
+                <el-table-column label="模块名称" align="left" width="230%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.name }}</span>
                         <el-tag>{{ scope.row.pic_type | picTypeFilter }}</el-tag>
@@ -115,22 +125,22 @@
                            class="el-button--text">查看图片</a>
                     </template>
                 </el-table-column>
-                <el-table-column label="pic_type" align="center" width="80%">
+                <el-table-column label="pic_type" align="center" width="90%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.pic_type }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="来源" align="center" width="80%">
+                <el-table-column label="来源" align="center" width="90%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.source_name | sourceFilter }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="rank" align="center" width="70%">
+                <el-table-column label="rank" align="center" width="90%">
                     <template slot-scope="scope">
-                        <span v-if="!editRankFlag">{{ scope.row.rank }}</span>
-                        <span v-if="editRankFlag" class="cell-edit-input">
+                        <span v-if="rankStatus">{{ scope.row.rank }}</span>
+                        <span v-if="!rankStatus" class="cell-edit-input">
                             <el-input size="small" v-model="scope.row.rank" placeholder="" @change="handleEditRank(scope.$index, scope.row.rank)"></el-input>
                         </span>
                     </template>
@@ -140,7 +150,7 @@
                         <span>{{ scope.row.sub_class_id }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="子类别名称" align="center" width="110%">
+                <el-table-column label="子类别名称" align="center" width="100%">
                     <template slot-scope="scope">
                         <span>{{ scope.row.sub_class_name }}</span>
                     </template>
@@ -151,7 +161,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="225%" align="center">
+                <el-table-column label="操作" width="230%" align="center">
                     <template slot-scope="scope">
                         <el-button type="primary" icon="el-icon-document" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -249,6 +259,9 @@
                 <el-form-item label="主播名">
                     <el-input v-model="albumForm.host_name" style="width: 80%"></el-input>
                 </el-form-item>
+                <el-form-item label="专辑顺序">
+                    <el-input v-model="albumForm.rank" style="width: 80%"></el-input>
+                </el-form-item>
                 <el-form-item label="专辑描述">
                     <el-input v-model="albumForm.album_dscp" style="width: 80%"></el-input>
                 </el-form-item>
@@ -327,20 +340,15 @@
                 batchVisible: false,
                 albumBatchVisible: false,
 
-                editRankFlag: false,
-                editRandStatus: false,
                 rankType: 'primary',
                 rankStatus: true,
+                editRankStatus: false,
                 modifyRankData: [],
 
-                editAlbumRankStatus: false,
                 albumRankType: 'primary',
                 albumRankStatus: true,
-                adjustAlbumRank: true,
+                editAlbumRankStatus: false,
                 modifyAlbumRankData: [],
-                adjustAlbumRankColor: {
-                    color: `#8c939d`
-                },
 
                 idx: -1,
                 idy: -1,
@@ -495,9 +503,9 @@
             },
             // 顺序修改
             modifyRank() {
-                this.editRankFlag = true;
                 this.rankType = 'success';
                 this.rankStatus = false;
+                this.editRankStatus = false;
             },
             handleEditRank(index, val) {
                 this.modifyRankData = this.tableData;
@@ -509,11 +517,10 @@
                 if (this.editRankStatus) {
                     this.tableData = this.modifyRankData;
                 }
-                this.modifyRankData = [];
                 this.rankType = 'primary';
                 this.rankStatus = true;
-                this.editRankFlag = false;
                 this.editRankStatus = false;
+                this.modifyRankData = [];
             },
             // 批量操作
             handlePicSelectionChange(val) {
@@ -572,15 +579,26 @@
             },
             // album顺序修改
             modifyAlbumRank() {
-                this.albumRankStatus = false;
                 this.albumRankType = 'success';
-                this.adjustAlbumRank = false;
-                this.adjustAlbumRankColor = {
-                    color: `#20a0ff`
-                };
-                this.modifyAlbumRankData = this.albumData;
+                this.albumRankStatus = false;
+                this.editAlbumRankStatus = false;
             },
-            handleAlbumMoveUp(index, row) {
+            handleEditAlbumRank(index, val) {
+                this.modifyAlbumRankData = this.albumData;
+                this.modifyAlbumRankData[index].rank = val;
+                this.editAlbumRankStatus = true;
+            },
+            // 确定顺序修改
+            confirmAlbumRank() {
+                if (this.editAlbumRankStatus) {
+                    this.albumData = this.modifyAlbumRankData;
+                }
+                this.albumRankType = 'primary';
+                this.albumRankStatus = true;
+                this.editAlbumRankStatus = false;
+                this.modifyAlbumRankData = [];
+            },
+/*            handleAlbumMoveUp(index, row) {
                 this.editAlbumRankStatus = true;
                 if (index !== 0) {
                     let item = this.albumData[index];
@@ -595,7 +613,7 @@
                     this.albumData[index] = this.albumData[index + 1];
                     this.albumData[index + 1] = item;
                 }
-            },
+            },*/
             handleAlbumCreate() {
                 this.editAlbumVisible = true;
                 this.albumForm = {
@@ -609,22 +627,6 @@
                     album_dscp: '',
                     album_heat: ''
                 };
-            },
-            // 确定顺序修改
-            confirmAlbumRank() {
-                if (this.editAlbumRankStatus) {
-                    // commit the albumData
-                } else {
-                    this.albumData = this.modifyAlbumRankData;
-                }
-                this.albumRankStatus = true;
-                this.albumRankType = 'primary';
-                this.adjustAlbumRank = true;
-                this.adjustAlbumRankColor = {
-                    color: `#8c939d`
-                };
-                this.editAlbumRankStatus = false;
-                this.modifyAlbumRankData = [];
             },
             // 修改album
             handleAlbumEdit(index, row) {

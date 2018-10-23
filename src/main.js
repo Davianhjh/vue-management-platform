@@ -13,11 +13,11 @@ Vue.prototype.$axios = axios;
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-    const access_token = localStorage.getItem('access_token');
-    if(access_token === null && to.path !== '/login'){
+    const accessToken = localStorage.getItem('accessToken');
+    if(accessToken === null && to.path !== '/login'){
         next('/login');
     }else if(to.meta.requireAuth){
-        access_token === 'yiosdahfadf' ? next() : next('/403');
+        accessToken === 'yiosdahfadf' ? next() : next('/403');
     }else{
         next();
     }
